@@ -4,27 +4,60 @@
 .media div {
   float: left;
 }
+.line {
+  overflow: auto;
+}
+.right {
+  float: right;
+}
 body {
-  background-color: #eee;
+  background-color: #fefefe;
   width: 640px;
   height: 920px;
-  outline: 2px solid #000;
+  outline: 2px solid #ccc;
   font-size: 25px;
   font-family: helvetica;
+  color: #111;
 }
-.login-view {
+ul {
+  list-style-type: none;
+  margin-left: 0;
+}
+#z-app {
+  position: relative;
+}
+#z-app > div {
+  outline: 1px dashed #ccc;
+  height: 920px;
+}
+.z-app {
+  position: relative;
+}
+.z-app > div {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.z-app > div.transition {
+  -webkit-transition: left 0.4s;
+}
+.z-app > div.active {
+  display: block;
+}
+.loginView {
   width: 100%;
   box-sizing: border-box;
   padding: 50px;
 }
-.login-view .app-name {
+.loginView .app-name {
   color: #555;
   position: relative;
   top: 16px;
   font-size: 35px;
   margin-left: 24px;
 }
-.login-view input {
+.loginView input {
   width: 100%;
   box-sizing: border-box;
   border-radius: 9px;
@@ -32,7 +65,7 @@ body {
   margin-top: 12px;
   text-indent: 13px;
 }
-.login-view button {
+.loginView button {
   float: right;
   background-image: url("../images/button.png");
   background-repeat: no-repeat;
@@ -40,4 +73,80 @@ body {
   width: 216px;
   height: 77px;
   margin-top: 16px;
+}
+.accountListView {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0;
+}
+.accountListView .cardChooser .cardNumber {
+  float: left;
+}
+.accountListView .cardChooser .total {
+  float: right;
+  color: #808080;
+}
+.accountListView .cardsTitle,
+.accountListView .accountsTitle {
+  webkit-user-select: none;
+  font-size: 18px;
+  color: #666;
+  padding: 20px;
+  background-image: linear-gradient(top, #d7d7d9 0%, #98989c 100%);
+  background-image: -o-linear-gradient(top, #d7d7d9 0%, #98989c 100%);
+  background-image: -moz-linear-gradient(top, #d7d7d9 0%, #98989c 100%);
+  background-image: -webkit-linear-gradient(top, #d7d7d9 0%, #a2a2a6 100%);
+  background-image: -ms-linear-gradient(top, #d7d7d9 0%, #98989c 100%);
+}
+.accountListView .card,
+.accountListView .account {
+  -webkit-user-select: none;
+  height: 90px;
+  display: -webkit-box;
+  -webkit-box-pack: center;
+  padding: 0 20px;
+  border-bottom: 1px solid #bbb;
+}
+.accountListView .card.active-state,
+.accountListView .account.active-state {
+  background-color: #eee;
+}
+.accountListView .card >*,
+.accountListView .account >* {
+  height: 90px;
+}
+.accountListView .card >.col-left,
+.accountListView .account >.col-left {
+  display: -webkit-box;
+  -webkit-box-flex: 2;
+  -webkit-box-orient: vertical;
+  -webkit-box-pack: justify;
+  box-sizing: border-box;
+  padding: 15px 0;
+}
+.accountListView .card >.col-left .status,
+.accountListView .account >.col-left .status {
+  color: #bbb;
+  font-size: 18px;
+}
+.accountListView .card >.col-left .cardNumber,
+.accountListView .account >.col-left .cardNumber,
+.accountListView .card >.col-left .accountNumber,
+.accountListView .account >.col-left .accountNumber {
+  font-weight: bold;
+}
+.accountListView .card >.col-right,
+.accountListView .account >.col-right {
+  -webkit-box-flex: 1;
+  display: table-row;
+}
+.accountListView .card >.col-right .total,
+.accountListView .account >.col-right .total {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: right;
+  padding-right: 15px;
+}
+[data-widget="selector"] .select-button {
+  width: 20px;
 }

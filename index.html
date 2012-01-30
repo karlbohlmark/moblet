@@ -15,38 +15,95 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="stylesheet" href="css/style.css?v=2">
   <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/z.css">
 
   <!--[if lt IE 9]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
 </head>
 <body>
-  <script type="text/x-handlebars">
-    {{#view App.LoginView}}
-      <div class="login-view">
+  <div id="z-app">
+    <div class="loginView">
         <div class="media clearfix">
           <img class="logo" src="images/card.png"><div class="app-name">Visa<br> Business Card</div>
         </div>
-       
-          {{view Ember.TextField valueBinding="App.loginController.ssn" name="ssn" placeholder="Personnummer" }}
-          {{view Ember.TextField valueBinding="App.loginController.password" type="password" placeholder="Lösenord" name="password" }}
+        
+        <input name="ssn" placeholder="Personnummer" >
+        <input type="password" placeholder="Lösenord" name="password" >
         
         <div>
-          {{#view Em.Button
-            target="App.loginController"
-            action="login" }}
-          {{/view}}
-          
+          <div data-id="error"></div>
+          <button id="btnLogin">
         </div>
-      </div>
-    {{/view}}
-  </script>
+    </div>
+
+    <div class="accountListView">
+
+        <h2 class="cardsTitle">Mina kort</h2>
+        <ul class="cards">
+          <li class="line card">
+            <div class="col-left">
+              <div class="cardNumber">
+                1111 2222 3333 4444
+              </div>
+              <div class="status">
+               Aktivt
+              </div>
+            </div>
+            <div class="col-right">
+              <span class="total">1234 kr</span>
+            </div>
+          </li>
+        </ul>
+
+        <h2 class="accountsTitle">Mina konton</h2>
+        <ul class="accounts">
+          <li class="line account">
+            <div class="col-left">
+              <div class="accountNumber">
+                1111 2222 3333 4444
+              </div>
+              <div class="status">
+               Aktivt
+              </div>
+            </div>
+            <div class="col-right">
+              <span class="total">1234 kr</span>
+            </div>
+          </li>
+        </ul>
+
+
+    </div>
+
+    <div class="cardView">
+      <div data-widget-ref="cardChooser" data-id="cardChooser" class="cardChooser"></div>
+      <dl>
+        <dt></dt>
+        <dd></dd>
+        <dt></dt>
+        <dd></dd>
+      </dl>
+    </div>
+  </div>
+  
+  <div data-widget="cardChooser">
+    <div>Kort:</div><div class="selector"></div>
+  </div>
+
+  <div data-widget="selector">  
+    <ul class="items">
+      <li class="item">
+    </ul>
+    <div class="select-button"></div>
+  </div>
 
 
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="js/libs/jquery-1.6.1.min.js"%3E%3C/script%3E'))</script>
-  <script src="js/libs/ember-0.9.2.js"></script>
+  <script src="js/libs/weld.js"></script>
+  <script src="js/z.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

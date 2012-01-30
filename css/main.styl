@@ -1,18 +1,52 @@
+view-padding=50px
+
 .media
 	img
 		float left
 	div
 		float left
 
+.line
+	overflow auto
+
+.right
+	float right
+
 body
-	background-color #eee
+	background-color #fefefe
 	width 640px
 	height 920px
-	outline 2px solid black
+	outline 2px solid #ccc
 	font-size 25px
 	font-family helvetica
+	color #111
 
-.login-view
+ul
+	list-style-type none
+	margin-left 0
+
+#z-app
+	> div
+		outline 1px dashed #ccc
+		height 920px
+	position relative
+	//bottom 920px
+
+.z-app
+	position relative
+	> div
+		display none
+		position absolute
+		left 0
+		top 0
+		&.transition
+			-webkit-transition: left .4s
+
+		&.active
+			display block
+
+
+.loginView
 	width 100%
 	box-sizing border-box
 	padding 50px
@@ -39,3 +73,66 @@ body
 		width 216px
 		height 77px
 		margin-top 16px
+
+
+.accountListView
+	width 100%
+	box-sizing border-box
+	padding 0
+	.cardChooser
+		.cardNumber
+			float left
+		.total
+			float right
+			color gray
+	.cardsTitle, .accountsTitle
+		webkit-user-select none
+		font-size 18px
+		color #666
+		padding 20px
+		background-image: linear-gradient(top, rgb(215,215,217) 0%, rgb(152,152,156) 100%);
+		background-image: -o-linear-gradient(top, rgb(215,215,217) 0%, rgb(152,152,156) 100%);
+		background-image: -moz-linear-gradient(top, rgb(215,215,217) 0%, rgb(152,152,156) 100%);
+		background-image: -webkit-linear-gradient(top, rgb(215,215,217) 0%, rgb(162,162,166) 100%);
+		background-image: -ms-linear-gradient(top, rgb(215,215,217) 0%, rgb(152,152,156) 100%);
+	.card, .account
+		-webkit-user-select none
+		height 90px
+		display -webkit-box
+		-webkit-box-pack center
+		padding 0 20px
+		&.active-state
+			background-color #eee
+		>*
+			height 90px
+		//&:not(:last-child)
+		border-bottom 1px solid #bbb
+		>.col-left
+			display -webkit-box
+			-webkit-box-flex 2
+			-webkit-box-orient vertical
+			-webkit-box-pack justify
+			box-sizing border-box
+			padding 15px 0
+			.status
+				color #bbb
+				font-size 18px
+			.cardNumber, .accountNumber
+				font-weight bold
+
+		>.col-right
+			-webkit-box-flex 1
+			display table-row
+			.total
+				display table-cell
+				vertical-align middle
+				text-align right
+				padding-right 15px
+
+[data-widget="selector"]{
+	.select-button{
+		width 20px
+	}
+}
+
+
