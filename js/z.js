@@ -14,43 +14,94 @@ var Z = {
                 toNode.classList.add('transition');
                 toNode.style.left = '0px';
             }.bind(this));
+        },
+        appear: function(fromNode, toNode){
+            if(fromNode) fromNode.classList.remove('active');
+            toNode.style.left = '0px';
+            toNode.style.top = '0px';
+            toNode.classList.add('active');
         }
     },
     AppProto: {
         go: function(toView, /* maybe an identifier */ param){
-            var transitionName = this.currentView.transitions[toView] || 'right';
-            var transition = Z.transitions[transitionName];
-            var targetView = this.views[toView];
-            targetView.activate(param);
-            transition.call(this, this.currentView.domNode, targetView.domNode);
-            this.currentView = targetView;
+            var transitionName, transition, targetView, waitHandle, fromNode, done;
+            transitionName = this.currentView && (this.currentView.transitions[toView] || 'right');
+            transition = transitionName ? Z.transitions[transitionName] : Z.transitions.appear;
+            targetView = this.views[toView];
+            waitHandle = targetView.activate(param);
+            fromNode = this.currentView && this.currentView.domNode;
+            done = Z.deferred();
+            if(waitHandle) this.showActivityIndicator(waitHandle);
+
+            (waitHandle || Z.immediately).then(function(){
+                    console.log('transitioning view');
+                    console.log(targetView);
+                    transition.call(this, fromNode, targetView.domNode);
+                    this.currentView = targetView;
+                    console.log(this);
+                    done.resolve();
+            }.bind(this));
+            return done;
             //this.transitionTo(this.views[toView], transition);
+        },
+        registerView: function(name, definition){
+            definition.app = this;
+            this.views[name] = Z.view(definition);
+        },
+        registerWidget: function(name, definition){
+            this.widgets[name] = Z.widget(definition);
         },
         transitionTo: function(view, transition){
             
         },
         activate: function(viewName, param){
             var view = this.views[viewName];
-            this.currentView = view;
             view.activate(param);
         },
         init: function(rootNode){
+            this.domNode = rootNode;
             for(var view in this.views){
                 if(this.views.hasOwnProperty(view)){
                     this.views[view].init( rootNode.querySelector('.' + view) );
                 }
             }
             var children = Array.prototype.slice.call( rootNode.querySelectorAll('div') );
-            this.activate(children[0].className);
-            rootNode.style.width = this.currentView.clientWidth + 'px';
-            rootNode.style.height = (this.height || this.currentView.clientHeight) + 'px';
-            rootNode.classList.add('z-app');
+            var gone = this.go(children[0].className);
+            gone.then(function(){
+                rootNode.style.width = this.currentView.clientWidth + 'px';
+                rootNode.style.height = (this.height || this.currentView.clientHeight) + 'px';
+                rootNode.classList.add('z-app');
+            }.bind(this));
+        },
+        showActivityIndicator: function(until){
+            var size = this.getViewPortDimensions();
+            var indicator = document.createElement('div');
+            indicator.style.width = size.width + 'px';
+            indicator.style.height = size.height + 'px';
+            indicator.style.position = 'absolute';
+            indicator.style.left = '0px';
+            indicator.style.right = '0px';
+            indicator.style.backgroundColor = 'rgba(0, 0, 0, 0.3)';
+            indicator.style.display = 'block';
+            this.domNode.appendChild(indicator);
+            until.then(function(){
+                indicator.parentNode.removeChild(indicator);
+                indicator = null;
+            }.bind(this));
+        },
+        getViewPortDimensions: function(){
+            var node = this.currentView ? this.currentView.domNode : this.domNode;
+            return {
+                width: node.clientWidth,
+                height: node.clientHeight
+            };
         }
     },
     ViewProto: {
         activate: function(param){
-            this.domNode.classList.add('active');
-            if(this.onActivate) this.onActivate(param);
+            if(this.onActivate){
+                return this.onActivate(param);
+            }
         },
         field: function(name){
             return this.domNode.querySelector('[name="' + name + '"]').value;
@@ -78,7 +129,7 @@ var Z = {
                 widgets.forEach(function(w){
                     var widgetRef = w.getAttribute('data-widget-ref');
                     var id = w.getAttribute('data-id');
-                    var widget = this.widgets[id];
+                    var widget = this.app.widgets[id];
                     if(id in this.widgets) throw new Error('The widget id ' + id + 'is already registered');
                     
                     this.widgets[id] = widget.instantiate(this.domNode);
@@ -150,6 +201,11 @@ var Z = {
         var d = Object.create(this.DeferredProto);
         d._onResolved = [];
         return d;
+    },
+    immediately: {
+            then: function(what){
+                what();
+            }
     },
     /* <---------------------- */
     _withProto: function(obj, proto){

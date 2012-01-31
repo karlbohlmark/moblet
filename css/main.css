@@ -147,6 +147,70 @@ ul {
   text-align: right;
   padding-right: 15px;
 }
+.cardView {
+  padding-top: 20px;
+}
+.cardView .overview {
+  overflow: auto;
+  border: 2px solid #ccc;
+  border-radius: 11px;
+  width: 92%;
+  margin: auto;
+  margin-bottom: 20px;
+}
+.cardView .overview dt,
+.cardView .overview dd {
+  width: 50%;
+  display: block;
+  box-sizing: border-box;
+  padding: 16px 20px;
+}
+.cardView .overview dt:not(:last-of-type),
+.cardView .overview dd:not(:last-of-type) {
+  border-bottom: 2px solid #ccc;
+}
+.cardView .overview dt {
+  float: left;
+  clear: left;
+  font-weight: bold;
+}
+.cardView .overview dd {
+  float: right;
+  text-align: right;
+}
+.cardView .latestTransactions {
+  width: 92%;
+  box-sizing: border-box;
+  margin: auto;
+  border-collapse: separate;
+}
+.cardView .latestTransactions caption {
+  text-align: left;
+  background-color: #eee;
+  padding: 15px 20px;
+  border-top-left-radius: 11px;
+  border-top-right-radius: 11px;
+  border: 2px solid #ccc;
+  border-bottom: none;
+  color: #777;
+}
+.cardView .latestTransactions td {
+  padding: 16px 20px;
+  border: 2px solid #ccc;
+}
+.cardView .latestTransactions td:first-child {
+  border-right: none;
+}
+.cardView .latestTransactions td:last-child {
+  border-left: none;
+  text-align: right;
+}
+.cardView .latestTransactions tr:last-child td:first-child {
+  border-bottom-left-radius: 11px;
+}
+.cardView .latestTransactions tr:last-child td:last-child {
+  border-bottom-right-radius: 11px;
+}
 [data-widget="selector"] .select-button {
   width: 20px;
 }

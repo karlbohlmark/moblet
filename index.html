@@ -22,7 +22,7 @@
   <![endif]-->
 </head>
 <body>
-  <div id="z-app">
+  <div id="z-app" style="/*top:-1840px*/">
     <div class="loginView">
         <div class="media clearfix">
           <img class="logo" src="images/card.png"><div class="app-name">Visa<br> Business Card</div>
@@ -77,14 +77,28 @@
     </div>
 
     <div class="cardView">
-      <div data-widget-ref="cardChooser" data-id="cardChooser" class="cardChooser"></div>
-      <dl>
-        <dt></dt>
-        <dd></dd>
-        <dt></dt>
-        <dd></dd>
+      <div data-widget-type="cardChooser" data-id="cardChooser" class="cardChooser"></div>
+      <dl class="overview">
+        <dt>Kortinnehavare</dt>
+        <dd class="cardHolder">Karl Böhlmark</dd>
+        <dt>Reserverat belopp</dt>
+        <dd class="reservedAmount">1000kr</dd>
+        <dt>Kvar att utnyttja</dt>
+        <dd class="balance">2000kr</dd>
       </dl>
+
+      <table class="latestTransactions">
+        <caption>5 senaste transaktionerna</caption>
+        <tr>
+          <td class="date">2010-12-12</td> <td class="amount">1 395,00</td>
+        </tr>
+
+        
+      </table>
+
+      <div data-widget-type=""></div>
     </div>
+
   </div>
   
   <div data-widget="cardChooser">
@@ -105,5 +119,6 @@
   <script src="js/libs/weld.js"></script>
   <script src="js/z.js"></script>
   <script src="js/app.js"></script>
+  <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 </body>
 </html>

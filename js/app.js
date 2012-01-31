@@ -1,6 +1,6 @@
 var app = Z.app({ width: 640, height: 920 });
 
-app.views.loginView = Z.view({
+app.registerView('loginView', {
     events: {
         '#btnLogin': { click: 'submitLogin' }
     },
@@ -20,7 +20,8 @@ app.views.loginView = Z.view({
                 app.views.accountListView.model.resolve({
                     cards:[
                         {cardNumber: '1234 1234 **** 1234', total:'1000kr', status:'Aktivt'},
-                        {cardNumber: '2222 2222 **** 2222', total:'1000kr', status:'Inaktivt'}
+                        {cardNumber: '2222 2222 **** 2222', total:'1000kr', status:'Inaktivt'},
+                        {cardNumber: '4444 2222 **** 2323', total:'4000kr', status:'Inaktivt'}
                     ],
                     accounts:[{accountNumber: '1234 1234 1234 1234'}]});
                 app.go('accountListView');
@@ -39,7 +40,7 @@ app.views.loginView = Z.view({
     }
 });
 
-app.views.accountListView = Z.view({
+app.registerView('accountListView', {
     events: {},
     model: Z.deferred(),
     transitions: {
@@ -73,23 +74,36 @@ app.views.accountListView = Z.view({
     }
 });
 
-app.views.cardView = Z.view({
+app.registerView('cardView', {
     model: Z.deferred(),
     onActivate: function(){
         this.databind();
-        setTimeout(function(){this.model.resolve({cardNumber : 'asdf', cardHolder : 'card cardHolder'});}.bind(this), 1000);
+        setTimeout(function(){this.model.resolve({
+                cardNumber : '1234 1234 1234 1234',
+                cardHolder : 'Johnny Cash',
+                reservedAmount: '10 000kr',
+                balance: '20 000kr'
+            });
+        }.bind(this), 1000);
+        return this.model;
     }
 });
 
-app.views.accountView = Z.view({
+app.registerView('accountView', {
     
 });
 
-app.widgets.cardChooser = Z.widget({
+app.registerWidget('cardChooser', {
     
 });
 
-app.init(document.getElementById('z-app'));
+if(document.location.search.indexOf('static')==-1)
+    app.init(document.getElementById('z-app'));
+
+/*
+if(document.location.search.indexOf('view')!=-1){
+    document.getElementById('z-app').style.top = 
+}*/
 
 app.server = {
     login: function(ssn, password, cb){

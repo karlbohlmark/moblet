@@ -1,5 +1,6 @@
 view-padding=50px
-
+border-color=#ccc
+border-radius=11px
 .media
 	img
 		float left
@@ -30,7 +31,7 @@ ul
 		outline 1px dashed #ccc
 		height 920px
 	position relative
-	//bottom 920px
+	//top -920px*2
 
 .z-app
 	position relative
@@ -128,6 +129,68 @@ ul
 				vertical-align middle
 				text-align right
 				padding-right 15px
+
+.cardView
+	padding-top 20px
+	.overview
+		overflow auto
+		border 2px solid border-color
+		border-radius border-radius
+		width 92%
+		margin auto
+
+		dt, dd
+			&:not(:last-of-type)
+				border-bottom 2px solid border-color
+			width 50%
+			display block
+			box-sizing border-box
+			padding 16px 20px
+
+		dt
+			float left
+			clear left
+			font-weight bold
+		dd
+			float right
+			text-align right
+		margin-bottom 20px
+	
+	.latestTransactions
+		width 92%
+		box-sizing border-box
+		margin auto
+		border-collapse separate
+		caption
+			text-align left
+			background-color #eee
+			padding 15px 20px
+			border-top-left-radius border-radius
+			border-top-right-radius border-radius
+			border 2px solid border-color
+			border-bottom none
+			color #777
+		td
+			padding 16px 20px
+			border=2px solid border-color
+			border border
+			&:first-child
+				border-right none
+			&:last-child
+				border-left none
+				text-align right
+			
+		tr:last-child
+			td
+				&:first-child
+					border-bottom-left-radius border-radius
+				&:last-child
+					border-bottom-right-radius border-radius
+			
+				
+			
+
+
 
 [data-widget="selector"]{
 	.select-button{
