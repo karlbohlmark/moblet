@@ -1,5 +1,6 @@
 view-padding=50px
 border-color=#ccc
+gray-text=#777
 border-radius=11px
 .media
 	img
@@ -169,7 +170,7 @@ ul
 			border-top-right-radius border-radius
 			border 2px solid border-color
 			border-bottom none
-			color #777
+			color gray-text
 		td
 			padding 16px 20px
 			border=2px solid border-color
@@ -186,6 +187,10 @@ ul
 					border-bottom-left-radius border-radius
 				&:last-child
 					border-bottom-right-radius border-radius
+		
+		.transaction
+			&.active-state
+				background-color #eee
 			
 				
 			

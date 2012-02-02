@@ -211,6 +211,9 @@ ul {
 .cardView .latestTransactions tr:last-child td:last-child {
   border-bottom-right-radius: 11px;
 }
+.cardView .latestTransactions .transaction.active-state {
+  background-color: #eee;
+}
 [data-widget="selector"] .select-button {
   width: 20px;
 }

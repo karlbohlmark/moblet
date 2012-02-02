@@ -76,6 +76,10 @@ app.registerView('accountListView', {
 
 app.registerView('cardView', {
     model: Z.deferred(),
+    transitions: {
+        'transactionView': 'right',
+        'accountListView': 'left'
+    },
     onActivate: function(){
         this.databind();
         setTimeout(function(){this.model.resolve({
@@ -86,11 +90,29 @@ app.registerView('cardView', {
             });
         }.bind(this), 1000);
         return this.model;
+    },
+    onInit: function(){
+        this.domNode.addEventListener('mouseup', function(){
+           var target = $('.active-state', this.domNode).removeClass('active-state');
+           if(target.length){
+               app.go('transactionView', target.attr('data-id'));
+           }
+        }.bind(this));
+        this.domNode.addEventListener('mousedown', function(e){
+           var transaction = $(e.target).closest('.transaction');
+           transaction.addClass('active-state');
+        }.bind(this));
     }
 });
 
 app.registerView('accountView', {
     
+});
+
+app.registerView('transactionView', {
+    transitions: {
+        'cardView': 'left'
+    }
 });
 
 app.registerWidget('cardChooser', {

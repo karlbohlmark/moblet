@@ -1,3 +1,25 @@
+Function.prototype.bind = function (oThis) {
+    if (typeof this !== "function") {
+      // closest thing possible to the ECMAScript 5 internal IsCallable function
+      throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
+    }
+  
+    var aArgs = Array.prototype.slice.call(arguments, 1),
+        fToBind = this,
+        fNOP = function () {},
+        fBound = function () {
+          return fToBind.apply(this instanceof fNOP
+                                 ? this
+                                 : oThis || window,
+                               aArgs.concat(Array.prototype.slice.call(arguments)));
+        };
+  
+    fNOP.prototype = this.prototype;
+    fBound.prototype = new fNOP();
+  
+    return fBound;
+  };
+
 
 var requestAnimationFrame = requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame;
 var Z = {
@@ -11,6 +33,19 @@ var Z = {
             fromNode.classList.add('transition');
             requestAnimationFrame(function(){
                 fromNode.style.left = (-width) + 'px';
+                toNode.classList.add('transition');
+                toNode.style.left = '0px';
+            }.bind(this));
+        },
+        left: function(fromNode, toNode){
+            var width= fromNode.clientWidth;
+            toNode.classList.remove('transition');
+            toNode.style.left = (-width) + 'px';
+            toNode.style.width = width + 'px';
+            toNode.classList.add('active');
+            fromNode.classList.add('transition');
+            requestAnimationFrame(function(){
+                fromNode.style.left = width + 'px';
                 toNode.classList.add('transition');
                 toNode.style.left = '0px';
             }.bind(this));
@@ -34,7 +69,8 @@ var Z = {
             if(waitHandle) this.showActivityIndicator(waitHandle);
 
             (waitHandle || Z.immediately).then(function(){
-                    console.log('transitioning view');
+                    //debugger;
+                    console.log('transitioning to view:' + toView);
                     console.log(targetView);
                     transition.call(this, fromNode, targetView.domNode);
                     this.currentView = targetView;
@@ -85,6 +121,7 @@ var Z = {
             indicator.style.display = 'block';
             this.domNode.appendChild(indicator);
             until.then(function(){
+                if(!indicator) return;
                 indicator.parentNode.removeChild(indicator);
                 indicator = null;
             }.bind(this));
@@ -172,11 +209,13 @@ var Z = {
             this._onResolved.forEach(function(handler){
                 handler.call(null, this.value);
             }.bind(this));
+            this._onResolved.splice(0);
         },
         then: function(onResolved){
             this._onResolved.push(onResolved);
             if(this.hasOwnProperty('value')){
                 onResolved.call(null, this.value);
+                this._onResolved.splice(0);
             }
         }
     },
