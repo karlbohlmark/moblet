@@ -81,12 +81,6 @@ ul
 	width 100%
 	box-sizing border-box
 	padding 0
-	.cardChooser
-		.cardNumber
-			float left
-		.total
-			float right
-			color gray
 	.cardsTitle, .accountsTitle
 		webkit-user-select none
 		font-size 18px
@@ -197,10 +191,15 @@ ul
 
 
 
-[data-widget="selector"]{
-	.select-button{
+[data-widget="selector"]
+	.select-button
 		width 20px
-	}
-}
 
-
+.cardChooser
+	width 92%
+	margin auto
+	.cardNumber
+		float left
+	.total
+		float right
+		color gray

@@ -20,10 +20,17 @@
   <!--[if lt IE 9]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
+
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="js/libs/jquery-1.6.1.min.js"%3E%3C/script%3E'))</script>
+  <script src="js/libs/weld.js">
+  </script>
+
 </head>
 <body>
   <div id="z-app" style="/*top:-1840px*/">
-    <div class="loginView">
+    <div class="loginView" data-view="loginView">
         <div class="media clearfix">
           <img class="logo" src="images/card.png"><div class="app-name">Visa<br> Business Card</div>
         </div>
@@ -37,49 +44,48 @@
         </div>
     </div>
 
-    <div class="accountListView">
+    <div data-view="accountListView" class="accountListView">
+      <div data-widget-type="navigationBar" data-id="navBar"></div>
 
-        <h2 class="cardsTitle">Mina kort</h2>
-        <ul class="cards">
-          <li class="line card">
-            <div class="col-left">
-              <div class="cardNumber">
-                1111 2222 3333 4444
-              </div>
-              <div class="status">
-               Aktivt
-              </div>
+      <h2 class="cardsTitle">Mina kort</h2>
+      <ul class="cards">
+        <li class="line card">
+          <div class="col-left">
+            <div class="cardNumber">
+              1111 2222 3333 4444
             </div>
-            <div class="col-right">
-              <span class="total">1234 kr</span>
+            <div class="status">
+             Aktivt
             </div>
-          </li>
-        </ul>
+          </div>
+          <div class="col-right">
+            <span class="total">1234 kr</span>
+          </div>
+        </li>
+      </ul>
 
-        <h2 class="accountsTitle">Mina konton</h2>
-        <ul class="accounts">
-          <li class="line account">
-            <div class="col-left">
-              <div class="accountNumber">
-                1111 2222 3333 4444
-              </div>
-              <div class="status">
-               Aktivt
-              </div>
+      <h2 class="accountsTitle">Mina konton</h2>
+      <ul class="accounts">
+        <li class="line account">
+          <div class="col-left">
+            <div class="accountNumber">
+              1111 2222 3333 4444
             </div>
-            <div class="col-right">
-              <span class="total">1234 kr</span>
+            <div class="status">
+             Aktivt
             </div>
-          </li>
-        </ul>
-
-
+          </div>
+          <div class="col-right">
+            <span class="total">1234 kr</span>
+          </div>
+        </li>
+      </ul>
     </div>
 
-    <div class="cardView">
+    <div data-view="cardView" class="cardView">
       <div data-widget-type="cardChooser" data-id="cardChooser" class="cardChooser"></div>
       
-      <div data-widget-type="">
+      <div>
         <dl class="overview">
           <dt>Kortinnehavare</dt>
           <dd class="cardHolder">Karl Böhlmark</dd>
@@ -89,18 +95,17 @@
           <dd class="balance">2000kr</dd>
         </dl>
 
-      <table class="latestTransactions">
-        <caption>5 senaste transaktionerna</caption>
-        <tr class="transaction">
-          <td class="date">2010-12-12</td> <td class="amount">1 395,00</td>
-        </tr>
-
-        
-      </table>
+        <table class="latestTransactions">
+          <caption>5 senaste transaktionerna</caption>
+          <tr class="transaction">
+            <td class="date">2010-12-12</td> <td class="amount">1 395,00</td>
+          </tr>
+          
+        </table>
       </div>
     </div>
 
-    <div class="transactionView">
+    <div data-view="transactionView" class="transactionView">
       <div data-widget-type="cardChooser" data-id="cardChooser" class="cardChooser"></div>
       
        
@@ -120,7 +125,13 @@
 
 
   <div data-widget="cardChooser">
-    <div>Kort:</div><div class="selector"></div>
+    <div>Kort:</div><div data-widget-type="selector" class="selector"></div>
+  </div>
+
+  <div data-widget="navigationBar">
+    <ul>
+      <li> link
+    </ul>
   </div>
 
   <div data-widget="selector">  
@@ -131,13 +142,22 @@
   </div>
 
 
-
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-  <script src="/js/libs/curl.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="js/libs/jquery-1.6.1.min.js"%3E%3C/script%3E'))</script>
-  <script src="js/libs/weld.js"></script>
-  <script src="js/z.js"></script>
-  <script src="js/app.js"></script>
+  <script src="/js/libs/salo.js"></script>
+  <script>
+    window.cfg = {
+      paths: {
+        './': '/js/'
+      }
+    }
+  </script>
+  
+  <script>
+    require(['./app'], function(app){
+        console.log(app);
+    });
+  </script>
+  
+  <!--<script src="js/app.js"></script>-->
     
 </body>
 </html>

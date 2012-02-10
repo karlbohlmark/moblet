@@ -79,13 +79,6 @@ ul {
   box-sizing: border-box;
   padding: 0;
 }
-.accountListView .cardChooser .cardNumber {
-  float: left;
-}
-.accountListView .cardChooser .total {
-  float: right;
-  color: #808080;
-}
 .accountListView .cardsTitle,
 .accountListView .accountsTitle {
   webkit-user-select: none;
@@ -216,4 +209,15 @@ ul {
 }
 [data-widget="selector"] .select-button {
   width: 20px;
+}
+.cardChooser {
+  width: 92%;
+  margin: auto;
+}
+.cardChooser .cardNumber {
+  float: left;
+}
+.cardChooser .total {
+  float: right;
+  color: #808080;
 }
