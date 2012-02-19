@@ -6,17 +6,32 @@ define(['../z'], function(z){
             'transactionView': 'right',
             'accountListView': 'left'
         },
-        onActivate: function(){
-            this.databind();
-            setTimeout(function(){
-                this.model.resolve({
-                    cardNumber : '1234 1234 1234 1234',
-                    cardHolder : 'Johnny Cash',
-                    reservedAmount: '10 000kr',
-                    balance: '20 000kr'
-                });
-              }.bind(this), 1000);
+        onActivate: function(param){
+            console.log('Activate cardview with param: ' +param);
+            var found = this.app.views.accountListView.model.value.all.filter(function(acc){
+              return acc.cardNumber == param || acc.accountNumber == param;
+            });
+
+            var card = found[0];
+
+            this.model.reset();
+            this.app.server.invoices(card.id, 2, function(invoices){
+              this.model.resolve({card:card, invoices:invoices});
+              this.databind();
+            }.bind(this));
+
           return this.model;
+        },
+        map: {
+          '.balance'        : 'card.total',
+          '.cardHolder'     : 'card.cardHolder',
+          '.reservedAmount' : 'card.reservedAmount',
+          '.latestTransactions .transaction': {
+            'invoice <- invoices':{
+              '.date':'invoice.invoiceDate',
+              '.amount': 'invoice.invoiceAmount'
+            }
+          }
         },
         onInit: function(){
             this.domNode.addEventListener('mouseup', function(){

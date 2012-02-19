@@ -1,7 +1,18 @@
 define(['../z'], function(z){
 	return z.view(
 		{
-			events: {},
+			events: [
+				['mousedown', '.card, .account', function(e){
+					$(e.currentTarget).addClass('active-state');
+				}],
+				['mouseup', '.card, .account', function(e){
+					var target = $('.active-state', this.domNode).removeClass('active-state');
+					if(target.length){
+						var view = $(e.currentTarget).is('.account') ? 'accountView' : 'cardView';
+						this.app.go(view, target.attr('data-id'));
+					}
+				}]
+			],
 			model: z.deferred(),
 			transitions: {
 				'loginView': 'left'
@@ -9,27 +20,26 @@ define(['../z'], function(z){
 			onActivate: function(){
 				this.databind();
 			},
-			onInit: function(){
-				this.domNode.addEventListener('mouseup', function(){
-					var target = $('.active-state', this.domNode).removeClass('active-state');
-					if(target.length){
-						app.go('cardView', target.attr('data-id'));
+			map: {
+				'.cardsTitle@class+': function(arg){
+					return arg.context.cards.length ? '' : ' hidden';
+				},
+				'.accountsTitle@class+': function(arg){
+					return arg.context.accounts.length ? '' : ' hidden';
+				},
+				'.cards .card': {
+					'c <- cards': {
+						'.cardNumber': 'c.cardNumber',
+						'.total': 'c.total',
+						'@data-id': 'c.cardNumber'
 					}
-				}.bind(this));
-				this.domNode.addEventListener('mousedown', function(e){
-					var card = $(e.target).closest('.card');
-					card.addClass('active-state');
-				}.bind(this));
-			},
-			onDatabind: function(parent, element, key, val){
-				switch( key ){
-					case 'cardNumber':
-					$(element).closest('.card').attr('data-id', val);
-					break;
-					case 'accountNumber':
-					$(element).closest('.account').attr('data-id', val);
-					break;
-					default:
+				},
+				'.accounts .account': {
+					'a <- accounts': {
+						'.accountNumber': 'a.accountNumber',
+						'.total': 'a.total',
+						'@data-id': 'a.accountNumber'
+					}
 				}
 			}
 		}

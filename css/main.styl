@@ -48,6 +48,62 @@ ul
 			display block
 
 
+.tableWithCaption
+	width 92%
+	box-sizing border-box
+	margin auto
+	border-collapse separate
+	caption
+		text-align left
+		background-color #eee
+		padding 15px 20px
+		border-top-left-radius border-radius
+		border-top-right-radius border-radius
+		border 2px solid border-color
+		border-bottom none
+		color gray-text
+	td
+		padding 16px 20px
+		border=2px solid border-color
+		border border
+		&:first-child
+			border-right none
+		&:last-child
+			border-left none
+			text-align right
+		
+	tr:last-child
+		td
+			border-top none
+			&:first-child
+				border-bottom-left-radius border-radius
+			&:last-child
+				border-bottom-right-radius border-radius
+
+.defList
+	overflow auto
+	border 2px solid border-color
+	border-radius border-radius
+	width 92%
+	margin auto
+
+	dt, dd
+		&:not(:last-of-type)
+			border-bottom 2px solid border-color
+		width 50%
+		display block
+		box-sizing border-box
+		padding 16px 20px
+
+	dt
+		float left
+		clear left
+		font-weight bold
+	dd
+		float right
+		text-align right
+	margin-bottom 20px
+
 .loginView
 	width 100%
 	box-sizing border-box
@@ -126,80 +182,153 @@ ul
 				padding-right 15px
 
 .cardView
-	padding-top 20px
 	.overview
-		overflow auto
-		border 2px solid border-color
-		border-radius border-radius
-		width 92%
-		margin auto
+		@extends .defList
 
-		dt, dd
-			&:not(:last-of-type)
-				border-bottom 2px solid border-color
-			width 50%
-			display block
-			box-sizing border-box
-			padding 16px 20px
-
-		dt
-			float left
-			clear left
-			font-weight bold
-		dd
-			float right
-			text-align right
-		margin-bottom 20px
 	
 	.latestTransactions
-		width 92%
-		box-sizing border-box
-		margin auto
-		border-collapse separate
-		caption
-			text-align left
-			background-color #eee
-			padding 15px 20px
-			border-top-left-radius border-radius
-			border-top-right-radius border-radius
-			border 2px solid border-color
-			border-bottom none
-			color gray-text
-		td
-			padding 16px 20px
-			border=2px solid border-color
-			border border
-			&:first-child
-				border-right none
-			&:last-child
-				border-left none
-				text-align right
-			
-		tr:last-child
-			td
-				&:first-child
-					border-bottom-left-radius border-radius
-				&:last-child
-					border-bottom-right-radius border-radius
+		@extends .tableWithCaption
 		
 		.transaction
 			&.active-state
 				background-color #eee
+
+.accountView
+
+	.overview
+		@extends .defList
+
+	.latestInvoices
+		width 92%
+		margin auto
+
+
+		border 2px solid border-color
+		border-collapse separate
+		border-radius border-radius
+		caption
+			text-align left
+			margin-top 10px
+			margin-bottom 20px
+			margin-left 20px
+		
+		.invoiceRow:not(:last-child)
+			td
+				border-bottom 2px solid border-color
+		.invoice
+			
+			div:nth-child(2n+1)
+				margin-bottom 10px
+			padding 20px
+			font-size 0.8em
+			-webkit-column-count 3
+			label
+				font-weight bold
+			label, span
+				display block
+		
+	.navigation
+		display -webkit-box
+		position fixed
+		bottom 0px
+		left 0px
+		-webkit-box-pack justify
+		-webkit-box-align center
+		background-color black
+		height 3rem
+
+		li
+			width 50%
+			text-align center
+			color white
+			
+
+			
+.transactionView
+	.transactionDetail
+		@extends .defList
+	
 			
 				
 			
+[data-widget="navigationBar"], [data-widget-type="navigationBar"]
+	background-image -webkit-linear-gradient(top, #555 0%, #2c2c2c 50%, #161616 51%, #161616 100%);
+	nav-height=4rem
+	height nav-height
+	line-height nav-height
+	padding-left 2rem
+	padding-right 2rem
+	.title
+		color white
+	
+	-webkit-box-align center
+
+	display -webkit-box
+	.leftSection, .rightSection
+		width 150px
+		button
+			display -webkit-box
+		
+	.middleSection
+		text-align center
+		-webkit-box-flex 1
+
+[data-widget="cardChooser"], [data-widget-type="cardChooser"]
+	background-image -webkit-linear-gradient(top, #bdbdc1 0%, #dcdcde 100%)
+
+.backButton
+	button-background=-webkit-linear-gradient(top, #888 -4%, #2C2C2C 50%, #161616 51%, #161616 100%)
+	button-border=1px solid #333
+	background-image button-background //url(/images/back-left.png), url(/images/back-right.png), url(/images/middle.png)
+	color white
+	border none
+	background-clip padding-box, padding-box, border-box
+	background-position 0px 0px, right center, 7px 0px
+	background-repeat no-repeat, no-repeat, repeat-x
+	height 40px
+	text-indent .8rem
+	padding-right 20px
+	font-size 1rem
+	position relative
+	z-index 0
+	border button-border
+	border-radius 4px
+
+	&::before
+		content ""
+		position absolute
+		z-index -1
+		left -14px
+		bottom 5px
+		height 28px
+		width 28px
+		border none
+		border-radius 4px
+		border-top-left-radius 3px
+		border-left button-border
+		border-bottom button-border
+		background-image -webkit-linear-gradient(top left, #888 0%, #2C2C2C 50%, #161616 51%, #161616 100%)
+		-webkit-transform rotate(45deg)
 
 
-
-[data-widget="selector"]
+[data-widget="selector"], [data-widget-type="selector"]
 	.select-button
 		width 20px
 
 .cardChooser
-	width 92%
+	padding-left 2rem
+	padding-right 2rem
 	margin auto
+	margin-bottom 1rem
+	height 4rem
+	font-size 1.2rem
+	line-height 4rem
+	color #555
 	.cardNumber
 		float left
 	.total
 		float right
 		color gray
+
+[data-widget]
+	display none

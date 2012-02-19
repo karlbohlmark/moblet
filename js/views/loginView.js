@@ -13,7 +13,16 @@
             if(result.success){
                 this.clearError();
                 
+                this.app.server.companyList(function(companies){
+                    this.app.server.accountList(companies[0].organizationNumber, function(accountList){
+                        this.app.views.accountListView.model.resolve(accountList);
+                        this.app.go('accountListView');
+                    });
+                });
+
+                
                 // todo: remove
+                /*
                 setTimeout(function(){
                     
                     this.app.views.accountListView.model.resolve({
@@ -25,6 +34,7 @@
                         accounts:[{accountNumber: '1234 1234 1234 1234'}]});
                     this.app.go('accountListView');
                 }.bind(this),300);
+                */
                 // /todo
 
             }else{

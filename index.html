@@ -13,29 +13,28 @@
 
   <link rel="shortcut icon" href="/favicon.ico">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="stylesheet" href="css/style.css?v=2">
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/z.css">
+  <link rel="stylesheet" href="/css/style.css?v=2">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/z.css">
 
   <!--[if lt IE 9]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
 
 
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="js/libs/jquery-1.6.1.min.js"%3E%3C/script%3E'))</script>
-  <script src="js/libs/weld.js">
+  <script src="/js/libs/jquery.js"></script>
+  <script src="/js/libs/pure.js">
   </script>
-
+<script src="/js/join.js"></script>
 </head>
 <body>
   <div id="z-app" style="/*top:-1840px*/">
     <div class="loginView" data-view="loginView">
         <div class="media clearfix">
-          <img class="logo" src="images/card.png"><div class="app-name">Visa<br> Business Card</div>
+          <img class="logo" src="/images/card.png"><div class="app-name">Visa<br> Business Card</div>
         </div>
         
-        <input name="ssn" placeholder="Personnummer" >
+        <input name="ssn" value="198302100634" placeholder="Personnummer" >
         <input type="password" placeholder="Lösenord" name="password" >
         
         <div>
@@ -45,7 +44,7 @@
     </div>
 
     <div data-view="accountListView" class="accountListView">
-      <div data-widget-type="navigationBar" data-id="navBar"></div>
+      <div data-widget-type="navigationBar" data-id="navBar" data-prop-title="Översikt"></div>
 
       <h2 class="cardsTitle">Mina kort</h2>
       <ul class="cards">
@@ -83,6 +82,7 @@
     </div>
 
     <div data-view="cardView" class="cardView">
+      <div data-widget-type="navigationBar" data-id="navBar" data-prop-title="Kort"></div>
       <div data-widget-type="cardChooser" data-id="cardChooser" class="cardChooser"></div>
       
       <div>
@@ -105,33 +105,110 @@
       </div>
     </div>
 
-    <div data-view="transactionView" class="transactionView">
+    <div data-view="accountView" class="accountView">
+      <div data-widget-type="navigationBar" data-id="navBar" data-prop-title="Kort"></div>
       <div data-widget-type="cardChooser" data-id="cardChooser" class="cardChooser"></div>
       
-       
+      <div data-widget-type="tabs">
+        <div id="account-overview">
+          <dl class="overview">
+            <dt>Kortinnehavare</dt>
+            <dd class="cardHolder">Karl Böhlmark</dd>
+            <dt>Limit</dt>
+            <dd class="creditLimit">10 000kr</dd>
+            <dt>Fakturerat ej betalt</dt>
+            <dd class="nonClearedBalance">1 000kr</dd>
+            <dt>Ej fakturerat</dt>
+            <dd class="nonInvoicedAmount">1 000kr</dd>
+            <dt>Reserverat belopp</dt>
+            <dd class="reservedAmount">1 000kr</dd>
+            <dt>Kvar att utnyttja</dt>
+            <dd class="availableCreditAmount">2 000kr</dd>
+          </dl>
 
-      <table class="latestTransactions">
-        <caption>Transaktion</caption>
-        <tr class="transaction">
-          <td class="date">2010-12-12</td> <td class="amount">1 395,00</td>
-        </tr>
+          <table class="latestInvoices">
+            <caption>2 senaste fakturorna</caption>
+            <tr class="invoiceRow">
+              <td class="invoice">
+                <div>
+                  <label>Datum</label>
+                  <span class="invoiceDate">2012-02-02</span>
+                </div>
+                <div>
+                  <label>Status</label>
+                  <span class="status">Betald</span>
+                </div>
+                <div>
+                  <label>Förfallodatum</label>
+                  <span class="date">2012-03-23</span>
+                </div>
+                <div>
+                  <label>OCR</label>
+                  <span class="ocr">123412341234</span>
+                </div>
+                <div>
+                  <label>Belopp</label>
+                  <span class="amount">20 000kr</span>
+                </div>
+                <div>
+                  <label>Betalt</label>
+                  <span class="payedAmount">20 000kr</span>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div id="account-transactions">
+          <h1>Transaktioner</h1>
+          <ol>
+            <li>
+              <span>afsd</span><span>fdsa</span>
+            </li>
+          </ol>
+        </div>
+        <ul class="navigation">
+          <li><a href="#account-overview">Översikt</a>
+          <li><a href="#account-transactions">Transaktioner</a>
+        </ul>
+      </div> <!--/ tab widget-->
+    </div> <!--/ account view-->
 
-        
-      </table>
+    <div data-view="transactionView" class="transactionView">
+      <div data-widget-type="navigationBar" data-id="navBar" data-prop-title="Transaktion"></div>
+      <div data-widget-type="cardChooser" data-id="cardChooser" class="cardChooser"></div>
+      
+      <dl class="transactionDetail">
+          <dt class="dateLabel">Transaktionsdatum</dt> <dd class="date">2012-12-12</dd>
+          <dt class="cardNumberLabel">Kortnummer</dt> <dd class="amount">1111 **** 2222 4444</dd>
+          <dt class="cardHolderLabel">Kortinnehavare</dt> <dd class="cardHolder">Johnny Cash</dd>
+          <dt class="accountingDateLabel">Bokföringsdatum</dt> <dd class="accountingDate">2011-03-20</dd>
+          <dt class="descriptionLabel">Beskrivning</dt> <dd class="amount">Taxi Stockholm AB</dd>
+          <dt class="cityLabel">Ort</dt> <dd class="city">Stockholm</dd>
+      </dl>
     </div>
 
   </div>
 
+  <!-- WIDGETS -->
 
-
-  <div data-widget="cardChooser">
+  <div class="cardChooser" data-widget="cardChooser">
     <div>Kort:</div><div data-widget-type="selector" class="selector"></div>
   </div>
 
   <div data-widget="navigationBar">
-    <ul>
-      <li> link
-    </ul>
+    <div class="leftSection">
+      <button data-navigate="back" class="backButton" >Tillbaka</button>
+    </div>
+    <div class="middleSection">
+      <span data-name="title" class="title">Översikt</span>
+    </div>
+    <div class="rightSection">
+      
+    </div>
+  </div>
+
+  <div>
+    
   </div>
 
   <div data-widget="selector">  
@@ -149,15 +226,12 @@
         './': '/js/'
       }
     }
-  </script>
+    </script>
   
   <script>
     require(['./app'], function(app){
         console.log(app);
     });
   </script>
-  
-  <!--<script src="js/app.js"></script>-->
-    
 </body>
 </html>
